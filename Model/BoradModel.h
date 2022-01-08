@@ -1,28 +1,64 @@
 #pragma once
-#include "TileModel.h"
+
 #include <vector>
 #include "Figures/CheckerModel.h"
-#include "Figures/QueenModel.h"
-#include "Figures/PieceModel.h"
+#include "TileModel.h"
 
-using namespace std;
 
-class CheckerModel;
-class QueenModel;
-class PieceModel;
 class TileModel;
-
 
 class BoardModel {
 private:
-    mutable vector<vector<TileModel>> _tiles;
+    mutable std::vector<std::vector<TileModel>> _tiles;
     int _blackCounter;
     int _whiteCounter;
     int _playerTurn;
 public:
-    BoardModel();
+    BoardModel(){
+        for (int y = 0; y < 8; y++) {
+            std::vector<TileModel> v1;
+            v1.reserve(8);
+            for (int x = 0; x < 8; x++) {
+                v1.emplace_back();
+            }
+            _tiles.push_back(v1);
+        }
 
-    bool checkWinCondition() const;
+        this->_whiteCounter = 0;
+        this->_blackCounter = 0;
+
+        for (int y = 5; y < 8; y++) {
+            for (int x = 0; x < 8; x++) {
+                if ((y + x) % 2) {
+                    this->_tiles[y][x].setPiece(new CheckerModel(y, x, Color(-1)));
+                    this->_whiteCounter++;
+                }
+            }
+        }
+
+        for (int y = 0; y < 3; y++) {
+            for (int x = 0; x < 8; x++) {
+                if ((y + x) % 2) {
+                    this->_tiles[y][x].setPiece(new CheckerModel(y, x, Color(1)));
+                    this->_blackCounter++;
+                }
+            }
+        }
+
+        _playerTurn = -1;
+    };
+
+    bool checkWinCondition() const{
+
+        if (_blackCounter == 0) {
+            std::cout << "White player wins" << std::endl;
+            return true;
+        } else if (_whiteCounter == 0) {
+            std::cout << "Black player wins" << std::endl;
+            return true;
+        } else
+            return false;
+    };
 
     int getWhiteCounter() const { return _whiteCounter; }
 
@@ -38,6 +74,6 @@ public:
 
     void setPlayerTurn(int value) { _playerTurn = value; }
 
-    vector<vector<TileModel>> &getBoardTiles() { return _tiles; };
+    std::vector<std::vector<TileModel>> &getBoardTiles() { return _tiles; };
 
 };

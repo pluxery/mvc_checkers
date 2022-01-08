@@ -1,11 +1,10 @@
-#ifndef MVC_CHECKERS_QUEENMODEL_H
-#define MVC_CHECKERS_QUEENMODEL_H
-#include "PieceModel.h"
-#include<iostream>
-#include <vector>
-using namespace std;
+#pragma once
 
+
+#include "PieceModel.h"
 class PieceModel;
+class TileModel;
+
 
 class QueenModel : public PieceModel {
     using PieceModel::PieceModel;
@@ -14,11 +13,63 @@ public:
 
     bool isQueen() const override { return true; };
 
-    MoveStatus move(vector<vector<TileModel>> tiles, int newY, int newX) override;
+    MoveStatus move(std::vector<std::vector<TileModel>> tiles, int newY, int newX) override;
 
-    static PieceModel *checkDiagonal(const vector<vector<TileModel>> &tiles, int oldY, int oldX, int newY, int newX);
+    static PieceModel *checkDiagonal(const std::vector<std::vector<TileModel>> &tiles, int oldY, int oldX, int newY, int newX);
 
 };
+MoveStatus QueenModel::move(std::vector<std::vector<TileModel>> tiles, int newY, int newX) {
+    if (tiles[newY][newX].hasPiece() || (newX + newY) % 2 == 0) {
+        return {NONE};
+    }
+
+    int qy = this->getY();
+    int qx = this->getX();
+    bool isPieceOnWay = false;
+
+    if (abs(newY - qy) == abs(newX - qx)) {
+        PieceModel *piece = checkDiagonal(tiles, qy, qx, newY, newX);
+        if (piece != nullptr && piece->getColor() != tiles[qy][qx].getPiece()->getColor()) {
+            isPieceOnWay = true;
+        }
+        if (isPieceOnWay) {
+            return {KILL, piece};
+        }
+
+        return {NORMAL};
+    } else return {NONE};
+}
+
+PieceModel *QueenModel::checkDiagonal(const std::vector<std::vector<TileModel>> &tiles, int oldY, int oldX, int newY, int newX) {
+    if (newX - oldX > 0 && newY - oldY < 0) {
+        for (int y = oldY - 1, x = oldX + 1; y > newY && x < newX; x++, y--) {
+            if (tiles[y][x].hasPiece()) {
+                return tiles[y][x].getPiece();
+            }
+        }
+    }
+    if (newX - oldX < 0 && newY - oldY > 0) {
+        for (int y = oldY + 1, x = oldX - 1; y < newY && x > newX; x--, y++) {
+            if (tiles[y][x].hasPiece()) {
+                return tiles[y][x].getPiece();
+            }
+        }
+    }
+    if (newX - oldX < 0 && newY - oldY < 0) {
+        for (int y = oldY - 1, x = oldX - 1; y > newY && x > newX; x--, y--) {
+            if (tiles[y][x].hasPiece()) {
+                return tiles[y][x].getPiece();
+            }
+        }
+    }
+    if (newX - oldX > 0 && newY - oldY > 0) {
+        for (int y = oldY + 1, x = oldX + 1; y < newY && x < newX; x++, y++) {
+            if (tiles[y][x].hasPiece()) {
+                return tiles[y][x].getPiece();
+            }
+        }
+    }
+    return nullptr;
+}
 
 
-#endif //MVC_CHECKERS_QUEENMODEL_H

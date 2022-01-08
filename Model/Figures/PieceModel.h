@@ -1,13 +1,12 @@
 #pragma once
 
-#include "../../MoveStatus/MoveStatus.h"
+#include<vector>
 #include "../TileModel.h"
-
-#include <iostream>
-#include <vector>
-
+#include "../../MoveStatus/MoveStatus.h"
 
 class TileModel;
+
+class MoveStatus;
 
 enum Color {
     BLACK = 1, WHITE = -1
@@ -21,7 +20,12 @@ private:
 
 
 public:
-    PieceModel(int y, int x, Color c);
+    PieceModel(int y, int x, Color c) {
+        this->_x = x;
+        this->_y = y;
+        this->_color = c;
+
+    };
 
     virtual ~PieceModel() = default;
 
@@ -39,7 +43,7 @@ public:
 
     void setX(int x) { this->_x = x; }
 
-    virtual MoveStatus move(std::vector<std::vector<TileModel>>, int, int)=0;
+    virtual MoveStatus move(std::vector<std::vector<TileModel>>, int, int) = 0;
 
 };
 

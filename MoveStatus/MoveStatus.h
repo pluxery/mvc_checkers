@@ -1,8 +1,10 @@
 #pragma once
 
+
 #include "../Model/Figures/PieceModel.h"
 
 class PieceModel;
+
 
 enum MoveType {
     NONE, NORMAL, KILL
@@ -14,13 +16,16 @@ private:
     PieceModel *_piece{};
 
 public:
-    MoveType getType() const;
+    MoveType getType() const { return _type; }
 
-    PieceModel *getPiece() const;
+    PieceModel *getPiece() const { return this->_piece; }
 
-    MoveStatus(MoveType type);
+    MoveStatus(MoveType type) { this->_type = type; }
 
-    MoveStatus(MoveType type, PieceModel *piece);
+    MoveStatus(MoveType type, PieceModel *piece) {
+        this->_type = type;
+        this->_piece = piece;
+    }
 
-}
+};
 

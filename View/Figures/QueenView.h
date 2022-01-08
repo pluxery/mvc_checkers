@@ -1,11 +1,17 @@
 #pragma once
+
 #include "PieceView.h"
-#include <iostream>
-using namespace std;
+
+class PieceView;
 
 class QueenView : public PieceView {
 public:
-    void print(PieceModel *p) const override;
+    void print(PieceModel *p) const override {
+        if (p->getColor() == Color(-1))
+            std::cout << "W ";
+        else
+            std::cout << "B ";
+    };
 };
 
 
