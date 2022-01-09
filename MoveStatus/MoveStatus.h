@@ -1,9 +1,6 @@
 #pragma once
 
-
 #include "../Model/Figures/PieceModel.h"
-
-class PieceModel;
 
 
 enum MoveType {

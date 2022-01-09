@@ -1,15 +1,16 @@
 #pragma once
+
 #include "PieceView.h"
 
-class PieceView;
 
 class CheckerView : public PieceView {
 public:
-    void print(PieceModel *p) const override{
-        if (p->getColor() == Color(1))
-            std::cout << "W ";
+    void Update(Subject *subject) const override {
+        if (subject->getColor() == Color(-1))
+            std::cout << "w ";
         else
-           std::cout << "B ";
-    };
+            std::cout << "b ";
+    }
+
 };
 

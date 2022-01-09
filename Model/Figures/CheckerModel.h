@@ -4,15 +4,13 @@
 #include<vector>
 #include "PieceModel.h"
 
-class PieceModel;
+
 
 
 class CheckerModel : public PieceModel {
     using PieceModel::PieceModel;
 
 public:
-    bool isQueen() const override { return false; };
-
     ~CheckerModel() override = default;
 
     MoveStatus move(std::vector<std::vector<TileModel>> tiles, int newY, int newX) override;

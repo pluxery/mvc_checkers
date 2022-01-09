@@ -3,16 +3,14 @@
 #include<vector>
 #include "../TileModel.h"
 #include "../../MoveStatus/MoveStatus.h"
+#include "../../Observer/Observer.h"
 
-class TileModel;
-
-class MoveStatus;
 
 enum Color {
     BLACK = 1, WHITE = -1
 };
 
-class PieceModel {
+class PieceModel : public Subject {
 private:
     int _x;
     int _y;
@@ -29,11 +27,9 @@ public:
 
     virtual ~PieceModel() = default;
 
-    virtual bool isQueen() const = 0;
-
     void setColor(Color c) { this->_color = c; }
 
-    int getColor() const { return _color; }
+    int getColor() const override { return _color; }
 
     int getY() const { return _y; }
 

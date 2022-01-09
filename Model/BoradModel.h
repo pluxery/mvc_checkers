@@ -3,9 +3,8 @@
 #include <vector>
 #include "Figures/CheckerModel.h"
 #include "TileModel.h"
+#include "../View/Figures/CheckerView.h"
 
-
-class TileModel;
 
 class BoardModel {
 private:
@@ -14,7 +13,7 @@ private:
     int _whiteCounter;
     int _playerTurn;
 public:
-    BoardModel(){
+    BoardModel() {
         for (int y = 0; y < 8; y++) {
             std::vector<TileModel> v1;
             v1.reserve(8);
@@ -30,7 +29,10 @@ public:
         for (int y = 5; y < 8; y++) {
             for (int x = 0; x < 8; x++) {
                 if ((y + x) % 2) {
-                    this->_tiles[y][x].setPiece(new CheckerModel(y, x, Color(-1)));
+                    auto *piece = new CheckerModel(y, x, Color(-1));
+                    const auto pieceObserver = new CheckerView();
+                    piece->Attach(pieceObserver);
+                    this->_tiles[y][x].setPiece(piece);
                     this->_whiteCounter++;
                 }
             }
@@ -39,7 +41,10 @@ public:
         for (int y = 0; y < 3; y++) {
             for (int x = 0; x < 8; x++) {
                 if ((y + x) % 2) {
-                    this->_tiles[y][x].setPiece(new CheckerModel(y, x, Color(1)));
+                    auto *piece = new CheckerModel(y, x, Color(1));
+                    const auto pieceObserver = new CheckerView();
+                    piece->Attach(pieceObserver);
+                    this->_tiles[y][x].setPiece(piece);
                     this->_blackCounter++;
                 }
             }
@@ -48,7 +53,7 @@ public:
         _playerTurn = -1;
     };
 
-    bool checkWinCondition() const{
+    bool checkWinCondition() const {
 
         if (_blackCounter == 0) {
             std::cout << "White player wins" << std::endl;

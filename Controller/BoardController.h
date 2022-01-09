@@ -6,9 +6,6 @@
 #include "../Model/Figures/QueenModel.h"
 #include "../Model/Figures/CheckerModel.h"
 
-class BoardModel;
-class PieceModel;
-
 
 const char row[] = "ABCDEFGH";
 
@@ -46,20 +43,21 @@ public:
          }
 
          switch (moveStatus.getType()) {
-
              case NONE:
                  break;
              case NORMAL: {
                  PieceModel *piece = board->getTile(oldY, oldX).getPiece();
                  piece->setY(newY);
                  piece->setX(newX);
-                 std::cout << piece->getX() << std::endl;
                  if ((piece->getColor() == 1 && newY == 7) || (piece->getColor() == -1 && newY == 0)) {
                      int color = piece->getColor();
-                     board->getTile(newY, newX).setPiece(new QueenModel(newY, newX, Color(color)));
+                     auto *queen = new QueenModel(newY, newX, Color(color));
+                     const auto queenObserver = new QueenView();
+                     piece->Attach(queenObserver);
+
+                     board->getTile(newY, newX).setPiece(queen);
                  } else
                      board->getTile(newY, newX).setPiece(piece);
-                 std::cout << oldX << " " << oldY;
                  board->getTile(oldY, oldX).setPiece(nullptr);
                  break;
              }
@@ -70,9 +68,13 @@ public:
                  piece->setX(newX);
                  if ((piece->getColor() == 1 && newY == 7) || (piece->getColor() == -1 && newY == 0)) {
                      int color = piece->getColor();
-                     board->getTile(newY, newX).setPiece(new QueenModel(newY, newX, Color(color)));
+                     auto *queen = new QueenModel(newY, newX, Color(color));
+                     const auto queenObserver = new QueenView();
+                     piece->Attach(queenObserver);
+                     board->getTile(newY, newX).setPiece(queen);
                  } else
                      board->getTile(newY, newX).setPiece(piece);
+
                  board->getTile(oldY, oldX).setPiece(nullptr);
 
                  PieceModel *otherPiece = moveStatus.getPiece();
@@ -85,5 +87,6 @@ public:
 
                  break;
          }
-     };;
+     }
 };
+

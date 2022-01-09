@@ -10,22 +10,15 @@
 #include "../Controller/BoardController.h"
 
 
-
 class BoardView {
 public:
-    static void printBoard(BoardModel *board){
+    static void printBoard(BoardModel *board) {
         for (int y = 0; y < 8; y++) {
             std::cout << y + 1 << " ";
             for (int x = 0; x < 8; x++) {
                 if (board->getTile(y, x).hasPiece()) {
-                    auto *p = board->getTile(y, x).getPiece();
-                    if (p->isQueen()) {
-                        QueenView q;
-                        q.print(p);
-                    } else {
-                        CheckerView c;
-                        c.print(p);
-                    }
+                    auto *piece = board->getTile(y, x).getPiece();
+                    piece->Notify();
 
                 } else if (!board->getTile(y, x).hasPiece() && (x + y) % 2)
                     std::cout << ". ";

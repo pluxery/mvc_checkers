@@ -2,8 +2,6 @@
 
 
 #include "PieceModel.h"
-class PieceModel;
-class TileModel;
 
 
 class QueenModel : public PieceModel {
@@ -11,13 +9,13 @@ class QueenModel : public PieceModel {
 public:
     ~QueenModel() override = default;
 
-    bool isQueen() const override { return true; };
-
     MoveStatus move(std::vector<std::vector<TileModel>> tiles, int newY, int newX) override;
 
-    static PieceModel *checkDiagonal(const std::vector<std::vector<TileModel>> &tiles, int oldY, int oldX, int newY, int newX);
+    static PieceModel *
+    checkDiagonal(const std::vector<std::vector<TileModel>> &tiles, int oldY, int oldX, int newY, int newX);
 
 };
+
 MoveStatus QueenModel::move(std::vector<std::vector<TileModel>> tiles, int newY, int newX) {
     if (tiles[newY][newX].hasPiece() || (newX + newY) % 2 == 0) {
         return {NONE};
@@ -40,7 +38,8 @@ MoveStatus QueenModel::move(std::vector<std::vector<TileModel>> tiles, int newY,
     } else return {NONE};
 }
 
-PieceModel *QueenModel::checkDiagonal(const std::vector<std::vector<TileModel>> &tiles, int oldY, int oldX, int newY, int newX) {
+PieceModel *
+QueenModel::checkDiagonal(const std::vector<std::vector<TileModel>> &tiles, int oldY, int oldX, int newY, int newX) {
     if (newX - oldX > 0 && newY - oldY < 0) {
         for (int y = oldY - 1, x = oldX + 1; y > newY && x < newX; x++, y--) {
             if (tiles[y][x].hasPiece()) {

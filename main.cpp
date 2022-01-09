@@ -7,11 +7,13 @@ using std::cout;
 using std::cin;
 using std::endl;
 
+
 int main() {
 
     auto *boardModel = new BoardModel();
 
     while (!boardModel->checkWinCondition()) {
+
         cout << "Score for white: " << 12 - boardModel->getBlackCounter() << endl;
         cout << "Score for black: " << 12 - boardModel->getWhiteCounter() << endl << endl;
 
@@ -32,6 +34,7 @@ int main() {
         cin >> newX;
 
         BoardController::tryMove(oldY, oldX, newY, newX, boardModel);
+
     }
     return 0;
 }
