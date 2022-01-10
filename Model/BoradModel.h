@@ -13,45 +13,7 @@ private:
     int _whiteCounter;
     int _playerTurn;
 public:
-    BoardModel() {
-        for (int y = 0; y < 8; y++) {
-            std::vector<TileModel> v1;
-            v1.reserve(8);
-            for (int x = 0; x < 8; x++) {
-                v1.emplace_back();
-            }
-            _tiles.push_back(v1);
-        }
-
-        this->_whiteCounter = 0;
-        this->_blackCounter = 0;
-
-        for (int y = 5; y < 8; y++) {
-            for (int x = 0; x < 8; x++) {
-                if ((y + x) % 2) {
-                    auto *piece = new CheckerModel(y, x, Color(-1));
-                    const auto pieceObserver = new CheckerView();
-                    piece->Attach(pieceObserver);
-                    this->_tiles[y][x].setPiece(piece);
-                    this->_whiteCounter++;
-                }
-            }
-        }
-
-        for (int y = 0; y < 3; y++) {
-            for (int x = 0; x < 8; x++) {
-                if ((y + x) % 2) {
-                    auto *piece = new CheckerModel(y, x, Color(1));
-                    const auto pieceObserver = new CheckerView();
-                    piece->Attach(pieceObserver);
-                    this->_tiles[y][x].setPiece(piece);
-                    this->_blackCounter++;
-                }
-            }
-        }
-
-        _playerTurn = -1;
-    };
+    BoardModel();
 
     bool checkWinCondition() const {
 
@@ -81,4 +43,44 @@ public:
 
     std::vector<std::vector<TileModel>> &getBoardTiles() { return _tiles; };
 
+};
+
+BoardModel::BoardModel(){
+    for (int y = 0; y < 8; y++) {
+        std::vector<TileModel> v1;
+        v1.reserve(8);
+        for (int x = 0; x < 8; x++) {
+            v1.emplace_back();
+        }
+        _tiles.push_back(v1);
+    }
+
+    this->_whiteCounter = 0;
+    this->_blackCounter = 0;
+
+    for (int y = 5; y < 8; y++) {
+        for (int x = 0; x < 8; x++) {
+            if ((y + x) % 2) {
+                auto *piece = new CheckerModel(y, x, Color(-1));
+                const auto pieceObserver = new CheckerView();
+                piece->Attach(pieceObserver);
+                this->_tiles[y][x].setPiece(piece);
+                this->_whiteCounter++;
+            }
+        }
+    }
+
+    for (int y = 0; y < 3; y++) {
+        for (int x = 0; x < 8; x++) {
+            if ((y + x) % 2) {
+                auto *piece = new CheckerModel(y, x, Color(1));
+                const auto pieceObserver = new CheckerView();
+                piece->Attach(pieceObserver);
+                this->_tiles[y][x].setPiece(piece);
+                this->_blackCounter++;
+            }
+        }
+    }
+
+    _playerTurn = -1;
 };

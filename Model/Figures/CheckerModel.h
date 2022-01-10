@@ -5,8 +5,6 @@
 #include "PieceModel.h"
 
 
-
-
 class CheckerModel : public PieceModel {
     using PieceModel::PieceModel;
 
@@ -16,7 +14,8 @@ public:
     MoveStatus move(std::vector<std::vector<TileModel>> tiles, int newY, int newX) override;
 };
 
-MoveStatus CheckerModel::move(std::vector<std::vector<TileModel>> tiles, int newY, int newX) {
+
+MoveStatus CheckerModel::move(std::vector<std::vector<TileModel>> tiles, int newY, int newX)  {
     if (tiles[newY][newX].hasPiece() || (newY + newX) % 2 == 0) {
         return {NONE};
     }
@@ -35,3 +34,5 @@ MoveStatus CheckerModel::move(std::vector<std::vector<TileModel>> tiles, int new
     return {NONE};
 
 }
+
+

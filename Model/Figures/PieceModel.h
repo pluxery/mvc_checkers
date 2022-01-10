@@ -27,8 +27,6 @@ public:
 
     virtual ~PieceModel() = default;
 
-    void setColor(Color c) { this->_color = c; }
-
     int getColor() const override { return _color; }
 
     int getY() const { return _y; }
