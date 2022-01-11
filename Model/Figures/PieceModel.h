@@ -18,12 +18,7 @@ private:
 
 
 public:
-    PieceModel(int y, int x, Color c) {
-        this->_x = x;
-        this->_y = y;
-        this->_color = c;
-
-    };
+    PieceModel(int y, int x, Color c) : _y(y), _x(x), _color(c) {};
 
     virtual ~PieceModel() = default;
 
@@ -37,7 +32,7 @@ public:
 
     void setX(int x) { this->_x = x; }
 
-    virtual MoveStatus move(std::vector<std::vector<TileModel>>, int, int) = 0;
+    virtual MoveStatus move(const std::vector<std::vector<TileModel>> &tiles, int newY, int newX) = 0;
 
 };
 
