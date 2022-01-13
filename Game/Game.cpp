@@ -1,6 +1,6 @@
 #include "Game.h"
 
-void Position::ParseCoords() {//char to int
+void Position::ParseCoords() { //char to int
     int numbers[10]{0, 1, 2, 3, 4, 5, 6, 7, 8, 9};
     for (int code = 48, digit = 0; code < 58; code++, digit++) {
         if (this->oldY == code) {
@@ -10,7 +10,7 @@ void Position::ParseCoords() {//char to int
             this->newY = numbers[digit];
         }
     }
-    this - oldY--;
+    this-> oldY--;
     this->newY--;
 
     for (int code = 65, letter = 0; code < 73; code++, letter++) {
@@ -23,20 +23,30 @@ void Position::ParseCoords() {//char to int
     }
 }
 
+Position& Position::operator=(const std::vector<char> &buffer) {
+    this->oldY = buffer[0];
+    this->oldX = buffer[1];
+    this->newY = buffer[2];
+    this->newX = buffer[3];
+    return  *this;
+}
+
 
 Position Input(Position &coords) {
+    std::vector<char> buffer;
 
-    //_getch() - Считывание клавиши с клавиатуры
     std::cin.ignore();
     std::cout << "Pick your piece (number, letter): " << std::endl;
-    coords.oldY = _getch();
-    coords.oldX = _getch();
+    //_getch() - Считывание клавиши с клавиатуры
+    buffer.push_back(_getch());
+    buffer.push_back(_getch());
 
     std::cin.ignore();
     std::cout << "Pick your move (number, letter): " << std::endl;
-    coords.newY = _getch();
-    coords.newX = _getch();
+    buffer.push_back(_getch());
+    buffer.push_back(_getch());
 
+    coords = buffer;
     coords.ParseCoords();
     return coords;
 

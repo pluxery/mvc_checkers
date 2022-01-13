@@ -15,6 +15,9 @@ public:
     char oldY, oldX, newY, newX;
 
     void ParseCoords();
+
+    Position& operator=(const std::vector<char> &buffer);
+
 };
 
 void Launch();
