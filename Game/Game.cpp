@@ -1,5 +1,7 @@
 #include "Game.h"
 
+using ms = std::chrono::milliseconds;
+
 void Position::ParseCoords() { //char to int
     int numbers[10]{0, 1, 2, 3, 4, 5, 6, 7, 8, 9};
     for (int code = 48, digit = 0; code < 58; code++, digit++) {
@@ -47,7 +49,7 @@ void AsyncExitListener() {
             std::cout << "Bye!" << std::endl;
             exit(0);
         }
-        std::this_thread::sleep_for(std::chrono::milliseconds(500));
+        std::this_thread::sleep_for(ms(500));
     }
 
 }
@@ -75,17 +77,20 @@ Position Input(Position &coords) {
 
 void Launch() {
 
-    std::cout << ("Welcome!\n");
-    std::cout << ("Press '1' for start game. \nPress any key for exit:\n");
-    std::cout << ("Press 'Escape' during the game to exit\n");
-    int input_key;
-    input_key = _getch();
-    if (input_key == '1') {
-        std::cout << ("Go!\n");
-        return;
+    std::cout << "Welcome!\n";
+    std::cout << "Press 'Enter' for start game. \nPress 'Escape' for exit:\n";
+    //пока клавиша не нажата
+    while (!_kbhit()) {
+        GetKeyPressed();
+        if (KEY[VK_RETURN]) {// Enter
+            std::cout << ("Go!\n");
+            return;
+        } else if (KEY[VK_ESCAPE]) {
+            std::cout << "\nBye!\n";
+            exit(0);
+        }
+        std::this_thread::sleep_for(ms(500));
     }
-    std::cout << ("\nBye!\n");
-    exit(0);
 
 }
 
