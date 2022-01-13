@@ -1,7 +1,7 @@
 #include "QueenModel.h"
 
 
-PieceModel *
+IPieceModel *
 QueenModel::checkDiagonal(const std::vector<std::vector<TileModel>> &tiles, int oldY, int oldX, int newY, int newX) {
     if (newX - oldX > 0 && newY - oldY < 0) {
         for (int y = oldY - 1, x = oldX + 1; y > newY && x < newX; x++, y--) {
@@ -44,7 +44,7 @@ MoveStatus QueenModel::move(const std::vector<std::vector<TileModel>> &tiles, in
     bool isPieceOnWay = false;
 
     if (abs(newY - qy) == abs(newX - qx)) {
-        PieceModel *piece = checkDiagonal(tiles, qy, qx, newY, newX);
+        IPieceModel *piece = checkDiagonal(tiles, qy, qx, newY, newX);
         if (piece != nullptr && piece->getColor() != tiles[qy][qx].getPiece()->getColor()) {
             isPieceOnWay = true;
         }

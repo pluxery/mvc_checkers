@@ -7,6 +7,8 @@
 #include "Figures/QueenModel.cpp"
 #include "../View/Figures/CheckerView.h"
 #include "../View/Figures/QueenView.h"
+#include "../Factory/Factory.h"
+#include "../Factory/Factory.cpp"
 
 
 class BoardModel {
@@ -15,8 +17,22 @@ private:
     int _blackCounter;
     int _whiteCounter;
     int _playerTurn;
-public:
+
+protected:
+    /*
+     * Конструктор Singleton должен быть скрытым, чтобы предотвратить
+     * создание объекта через оператор new.
+     */
     BoardModel();
+
+    static BoardModel *singleton_;
+
+public:
+    BoardModel(BoardModel &other) = delete;//Singleton нельзя копировать
+
+    void operator=(const BoardModel &) = delete;
+
+    static BoardModel *GetSingleton();
 
     bool checkWinCondition() const;
 

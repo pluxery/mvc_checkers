@@ -3,17 +3,18 @@
 #include<Windows.h>
 #include <string>
 #include <conio.h>
+#include <thread>
+#include <chrono>
 #include "../Model/BoardModel.h"
 #include "../View/BoardView.h"
 #include "../View/BoardView.cpp"
 
+class Position {
 
+public:
+    char oldY, oldX, newY, newX;
 
-struct Position {
-    int oldY;
-    int newY;
-    char oldX;
-    char newX;
+    void ParseCoords();
 };
 
 void Launch();
@@ -22,9 +23,11 @@ bool KEY[256];
 
 void GetKeyPressed();
 
-void Render(BoardModel *boardModel);
+void AsyncExitListener();
 
-Position Input(Position &pos);
+Position Input(Position &coords);
+
+void Render(BoardModel *boardModel);
 
 void Update(Position pos, BoardModel *boardModel);
 

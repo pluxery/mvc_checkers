@@ -1,9 +1,9 @@
 #pragma once
 
-#include "PieceView.h"
+#include "IPieceView.h"
 
 
-class QueenView : public PieceView {
+class QueenView : public IPieceView {
 public:
     void Update(Subject *subject) const override {
         if (subject->getColor() == Color(-1))

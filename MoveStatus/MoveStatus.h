@@ -1,6 +1,6 @@
 #pragma once
 
-#include "../Model/Figures/PieceModel.h"
+#include "../Model/Figures/IPieceModel.h"
 
 
 enum MoveType {
@@ -10,19 +10,16 @@ enum MoveType {
 class MoveStatus {
 private:
     MoveType _type;
-    PieceModel *_piece{};
+    IPieceModel *_piece{};
 
 public:
     MoveType getType() const { return _type; }
 
-    PieceModel *getPiece() const { return this->_piece; }
+    IPieceModel *getPiece() const { return this->_piece; }
 
     MoveStatus(MoveType type) { this->_type = type; }
 
-    MoveStatus(MoveType type, PieceModel *piece) {
-        this->_type = type;
-        this->_piece = piece;
-    }
+    MoveStatus(MoveType type, IPieceModel *piece):_type(type), _piece(piece) {}
 
 };
 

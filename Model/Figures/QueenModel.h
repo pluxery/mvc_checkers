@@ -1,15 +1,15 @@
 #pragma once
 
 
-#include "PieceModel.h"
+#include "IPieceModel.h"
 
 
-class QueenModel : public PieceModel {
-    using PieceModel::PieceModel;
+class QueenModel : public IPieceModel {
+    using IPieceModel::IPieceModel;
 public:
     ~QueenModel() override = default;
 
-    static PieceModel *
+    static IPieceModel *
     checkDiagonal(const std::vector<std::vector<TileModel>> &tiles, int oldY, int oldX, int newY, int newX);
 
     MoveStatus move(const std::vector<std::vector<TileModel>> &tiles, int newY, int newX) override;

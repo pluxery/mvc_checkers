@@ -1,21 +1,21 @@
 #pragma once
 
 
-#include "Figures/PieceModel.h"
+#include "Figures/IPieceModel.h"
 
-class PieceModel;
+class IPieceModel;
 
 
 class TileModel {
 private:
-    PieceModel *_piece;
+    IPieceModel *_piece;
 
 public:
     TileModel() { this->_piece = nullptr; };
 
-    void setPiece(PieceModel *piece) { _piece = piece; };
+    void setPiece(IPieceModel *piece) { _piece = piece; };
 
-    PieceModel *getPiece() const { return _piece; };
+    IPieceModel *getPiece() const { return _piece; };
 
     bool hasPiece() const { return this->_piece != nullptr; }
 };

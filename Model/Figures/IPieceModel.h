@@ -10,17 +10,16 @@ enum Color {
     BLACK = 1, WHITE = -1
 };
 
-class PieceModel : public Subject {
+class IPieceModel : public Subject {
 private:
     int _x;
     int _y;
     Color _color;
 
-
 public:
-    PieceModel(int y, int x, Color c) : _y(y), _x(x), _color(c) {};
+    IPieceModel(int y, int x, Color c) : _y(y), _x(x), _color(c) {};
 
-    virtual ~PieceModel() = default;
+    virtual ~IPieceModel() = default;
 
     int getColor() const override { return _color; }
 
@@ -35,4 +34,5 @@ public:
     virtual MoveStatus move(const std::vector<std::vector<TileModel>> &tiles, int newY, int newX) = 0;
 
 };
+
 

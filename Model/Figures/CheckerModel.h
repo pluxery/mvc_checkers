@@ -2,11 +2,11 @@
 
 
 #include<vector>
-#include "PieceModel.h"
+#include "IPieceModel.h"
 
 
-class CheckerModel : public PieceModel {
-    using PieceModel::PieceModel;
+class CheckerModel : public IPieceModel {
+    using IPieceModel::IPieceModel;
 
 public:
     ~CheckerModel() override = default;

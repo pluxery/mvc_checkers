@@ -1,6 +1,9 @@
 #include "BoardModel.h"
 
-BoardModel::BoardModel(){
+
+BoardModel *BoardModel::singleton_ = nullptr;
+
+BoardModel::BoardModel() {
     for (int y = 0; y < 8; y++) {
         std::vector<TileModel> v1;
         v1.reserve(8);
@@ -16,10 +19,7 @@ BoardModel::BoardModel(){
     for (int y = 5; y < 8; y++) {
         for (int x = 0; x < 8; x++) {
             if ((y + x) % 2) {
-                //Создаем Subject (CheckerModel) с наблюдателем Observer (CheckerView : Observer)
-                auto *piece = new CheckerModel(y, x, Color(-1));
-                const auto pieceObserver = new CheckerView();
-                piece->Attach(pieceObserver);
+                auto *piece = Factory::Create("Checker", y, x, Color(-1));
                 this->_tiles[y][x].setPiece(piece);
                 this->_whiteCounter++;
             }
@@ -29,10 +29,7 @@ BoardModel::BoardModel(){
     for (int y = 0; y < 3; y++) {
         for (int x = 0; x < 8; x++) {
             if ((y + x) % 2) {
-                //Создаем Subject (CheckerModel) с наблюдателем (CheckerView : Observer)
-                auto *piece = new CheckerModel(y, x, Color(1));
-                const auto pieceObserver = new CheckerView();
-                piece->Attach(pieceObserver);
+                auto *piece = Factory::Create("Checker", y, x, Color(1));
                 this->_tiles[y][x].setPiece(piece);
                 this->_blackCounter++;
             }
@@ -42,7 +39,14 @@ BoardModel::BoardModel(){
     _playerTurn = -1;
 };
 
-bool BoardModel::checkWinCondition() const{
+BoardModel *BoardModel::GetSingleton() {
+    if (singleton_ == nullptr) {
+        singleton_ = new BoardModel();
+    }
+    return singleton_;
+};
+
+bool BoardModel::checkWinCondition() const {
 
     if (_blackCounter == 0) {
         std::cout << "White player wins" << std::endl;
@@ -52,4 +56,5 @@ bool BoardModel::checkWinCondition() const{
         return true;
     } else
         return false;
-};
+}
+
