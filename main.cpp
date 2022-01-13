@@ -11,11 +11,12 @@ int main() {
 
     auto *boardModel = BoardModel::GetSingleton();
 
-    auto frame = std::chrono::steady_clock::now();
-    const int FPS = 60;
-
     std::thread async_exit(AsyncExitListener);
     async_exit.detach();
+
+    using clock = std::chrono::steady_clock;
+    using ms = std::chrono::milliseconds;
+    const int FPS = 60;
 
     while (!boardModel->checkWinCondition()) {
 
@@ -24,7 +25,7 @@ int main() {
         Input(coords);
         Update(coords, boardModel);
 
-        frame += std::chrono::milliseconds(1000 / FPS); // = 16ms
+        auto frame = (clock::now() += ms(1000 / FPS)); // = 16ms;
         std::this_thread::sleep_until(frame);
     }
 }

@@ -3,7 +3,7 @@
 #include "../Model/BoardModel.h"
 #include "../Model/BoardModel.cpp"
 #include "../Model/Figures/IPieceModel.h"
-#include "../MoveStatus/MoveStatus.h"
+#include "../MoveState/MoveState.h"
 
 //#include "../Model/Figures/CheckerModel.cpp"
 

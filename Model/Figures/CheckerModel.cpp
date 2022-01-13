@@ -1,6 +1,6 @@
 #include "CheckerModel.h"
 
-MoveStatus CheckerModel::move(const std::vector<std::vector<TileModel>> &tiles, int newY, int newX) {
+MoveState CheckerModel::move(const std::vector<std::vector<TileModel>> &tiles, int newY, int newX) {
     if (tiles[newY][newX].hasPiece() || (newY + newX) % 2 == 0) {
         return {NONE};
     }

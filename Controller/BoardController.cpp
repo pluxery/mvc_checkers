@@ -2,14 +2,14 @@
 
 void BoardController::tryMove(int oldY, int oldX, int newY, int newX, BoardModel *board) {
 
-    MoveStatus moveStatus = NONE;
+    MoveState move_state = NONE;
     //Проверка корректности координат
     if (board->getTile(oldY, oldX).hasPiece() && !board->getTile(newY, newX).hasPiece() &&
         board->getPlayerTurn() == board->getTile(oldY, oldX).getPiece()->getColor()) {
 
-        moveStatus = board->getTile(oldY, oldX).getPiece()->move(board->getBoardTiles(), newY, newX);
+        move_state = board->getTile(oldY, oldX).getPiece()->move(board->getBoardTiles(), newY, newX);
 
-        if (moveStatus.getType() != NONE) {
+        if (move_state.getType() != NONE) {
             if (board->getPlayerTurn() == 1)
                 board->setPlayerTurn(-1);
             else
@@ -19,7 +19,7 @@ void BoardController::tryMove(int oldY, int oldX, int newY, int newX, BoardModel
         }
     }
 
-    switch (moveStatus.getType()) {
+    switch (move_state.getType()) {
         //ситуация: ход некорректный
         case NONE:
             break;
@@ -54,7 +54,7 @@ void BoardController::tryMove(int oldY, int oldX, int newY, int newX, BoardModel
 
             board->getTile(oldY, oldX).setPiece(nullptr);
 
-            IPieceModel *otherPiece = moveStatus.getPiece();
+            IPieceModel *otherPiece = move_state.getPiece();
             board->getTile(otherPiece->getY(), otherPiece->getX()).setPiece(nullptr);
 
             if (piece->getColor() == 1)

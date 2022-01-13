@@ -10,7 +10,7 @@ void Position::ParseCoords() { //char to int
             this->newY = numbers[digit];
         }
     }
-    this-> oldY--;
+    this->oldY--;
     this->newY--;
 
     for (int code = 65, letter = 0; code < 73; code++, letter++) {
@@ -23,12 +23,33 @@ void Position::ParseCoords() { //char to int
     }
 }
 
-Position& Position::operator=(const std::vector<char> &buffer) {
+Position &Position::operator=(const std::vector<char> &buffer) {
     this->oldY = buffer[0];
     this->oldX = buffer[1];
     this->newY = buffer[2];
     this->newX = buffer[3];
-    return  *this;
+    return *this;
+}
+
+void GetKeyPressed() {
+    int i = 0;
+    while (i < 256) {
+        if (GetAsyncKeyState(i)) KEY[i] = true;
+        else KEY[i] = false;
+        i++;
+    }
+}
+
+void AsyncExitListener() {
+    while (true) {
+        GetKeyPressed();
+        if (KEY[VK_ESCAPE]) {
+            std::cout << "Bye!" << std::endl;
+            exit(0);
+        }
+        std::this_thread::sleep_for(std::chrono::milliseconds(500));
+    }
+
 }
 
 
@@ -67,28 +88,6 @@ void Launch() {
     exit(0);
 
 }
-
-void GetKeyPressed() {
-    int i = 0;
-    while (i < 256) {
-        if (GetAsyncKeyState(i)) KEY[i] = true;
-        else KEY[i] = false;
-        i++;
-    }
-}
-
-void AsyncExitListener() {
-    while (true) {
-        GetKeyPressed();
-        if (KEY[VK_ESCAPE]) {
-            std::cout << "Bye!" << std::endl;
-            exit(0);
-        }
-        std::this_thread::sleep_for(std::chrono::milliseconds(500));
-    }
-
-}
-
 
 void Render(BoardModel *boardModel) {
     BoardView::printBoard(boardModel);

@@ -7,7 +7,7 @@ enum MoveType {
     NONE, NORMAL, KILL
 };
 
-class MoveStatus {
+class MoveState {
 private:
     MoveType _type;
     IPieceModel *_piece{};
@@ -17,9 +17,9 @@ public:
 
     IPieceModel *getPiece() const { return this->_piece; }
 
-    MoveStatus(MoveType type) { this->_type = type; }
+    MoveState(MoveType type) { this->_type = type; }
 
-    MoveStatus(MoveType type, IPieceModel *piece):_type(type), _piece(piece) {}
+    MoveState(MoveType type, IPieceModel *piece): _type(type), _piece(piece) {}
 
 };
 

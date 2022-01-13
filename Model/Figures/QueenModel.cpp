@@ -34,7 +34,7 @@ QueenModel::checkDiagonal(const std::vector<std::vector<TileModel>> &tiles, int 
     return nullptr;
 }
 
-MoveStatus QueenModel::move(const std::vector<std::vector<TileModel>> &tiles, int newY, int newX) {
+MoveState QueenModel::move(const std::vector<std::vector<TileModel>> &tiles, int newY, int newX) {
     if (tiles[newY][newX].hasPiece() || (newX + newY) % 2 == 0) {
         return {NONE};
     }

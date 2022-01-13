@@ -2,7 +2,7 @@
 
 #include<vector>
 #include "../TileModel.h"
-#include "../../MoveStatus/MoveStatus.h"
+#include "../../MoveState/MoveState.h"
 #include "../../Observer/Observer.h"
 
 
@@ -31,7 +31,7 @@ public:
 
     void setX(int x) { this->_x = x; }
 
-    virtual MoveStatus move(const std::vector<std::vector<TileModel>> &tiles, int newY, int newX) = 0;
+    virtual MoveState move(const std::vector<std::vector<TileModel>> &tiles, int newY, int newX) = 0;
 
 };
 

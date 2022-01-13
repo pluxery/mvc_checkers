@@ -12,7 +12,7 @@ public:
     static IPieceModel *
     checkDiagonal(const std::vector<std::vector<TileModel>> &tiles, int oldY, int oldX, int newY, int newX);
 
-    MoveStatus move(const std::vector<std::vector<TileModel>> &tiles, int newY, int newX) override;
+    MoveState move(const std::vector<std::vector<TileModel>> &tiles, int newY, int newX) override;
 
 
 };

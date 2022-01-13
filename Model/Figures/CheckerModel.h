@@ -11,7 +11,7 @@ class CheckerModel : public IPieceModel {
 public:
     ~CheckerModel() override = default;
 
-    MoveStatus move(const std::vector<std::vector<TileModel>> &tiles, int newY, int newX) override;
+    MoveState move(const std::vector<std::vector<TileModel>> &tiles, int newY, int newX) override;
 };
 
 
