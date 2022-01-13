@@ -15,7 +15,6 @@ int main() {
     async_exit.detach();
 
     using clock = std::chrono::steady_clock;
-    using ms = std::chrono::milliseconds;
     const int FPS = 60;
 
     while (!boardModel->checkWinCondition()) {
