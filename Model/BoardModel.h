@@ -25,14 +25,14 @@ protected:
      */
     BoardModel();
 
-    static BoardModel *singleton_;
+    static BoardModel *_singleton;
 
 public:
     BoardModel(BoardModel &other) = delete;//Singleton нельзя копировать
 
     void operator=(const BoardModel &) = delete;
 
-    static BoardModel *GetSingleton();
+    static BoardModel *getSingleton();
 
     bool checkWinCondition() const;
 

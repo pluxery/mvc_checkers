@@ -17,9 +17,9 @@ public:
 
     IPieceModel *getPiece() const { return this->_piece; }
 
-    MoveState(MoveType type) { this->_type = type; }
+    MoveState(MoveType type) : _type(type) {};
 
-    MoveState(MoveType type, IPieceModel *piece): _type(type), _piece(piece) {}
+    MoveState(MoveType type, IPieceModel *piece) : _type(type), _piece(piece) {}
 
 };
 

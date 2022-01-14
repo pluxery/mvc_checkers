@@ -7,7 +7,7 @@
 
 class BoardView {
 public:
-    static void printBoard(BoardModel *board);
+    static void drawBoard(BoardModel *board);
 };
 
 

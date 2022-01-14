@@ -9,14 +9,10 @@
 #include "../View/BoardView.h"
 #include "../View/BoardView.cpp"
 
-class Position {
-
-public:
+struct Buffer {
     char oldY, oldX, newY, newX;
 
-    void ParseCoords();
-
-    Position& operator=(const std::vector<char> &buffer);
+    void parseCoords();
 
 };
 
@@ -28,11 +24,11 @@ void GetKeyPressed();
 
 void AsyncExitListener();
 
-Position Input(Position &coords);
+Buffer Input(Buffer &coords);
 
 void Render(BoardModel *boardModel);
 
-void Update(Position pos, BoardModel *boardModel);
+void Update(Buffer coords, BoardModel *boardModel);
 
 
 

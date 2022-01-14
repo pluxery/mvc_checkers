@@ -1,6 +1,6 @@
 #include "BoardView.h"
 
-void BoardView::printBoard(BoardModel *board) {
+void BoardView::drawBoard(BoardModel *board) {
     for (int y = 0; y < 8; y++) {
         std::cout << y + 1 << " ";
         for (int x = 0; x < 8; x++) {

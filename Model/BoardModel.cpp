@@ -1,7 +1,7 @@
 #include "BoardModel.h"
 
 
-BoardModel *BoardModel::singleton_ = nullptr;
+BoardModel *BoardModel::_singleton = nullptr;
 
 BoardModel::BoardModel() {
     for (int y = 0; y < 8; y++) {
@@ -39,11 +39,11 @@ BoardModel::BoardModel() {
     _playerTurn = -1;
 };
 
-BoardModel *BoardModel::GetSingleton() {
-    if (singleton_ == nullptr) {
-        singleton_ = new BoardModel();
+BoardModel *BoardModel::getSingleton() {
+    if (_singleton == nullptr) {
+        _singleton = new BoardModel();
     }
-    return singleton_;
+    return _singleton;
 };
 
 bool BoardModel::checkWinCondition() const {
