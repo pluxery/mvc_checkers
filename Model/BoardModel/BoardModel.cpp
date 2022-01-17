@@ -1,7 +1,7 @@
 #include "BoardModel.h"
 
 
-BoardModel *BoardModel::_singleton = nullptr;
+BoardModel *BoardModel::_instance = nullptr;
 
 BoardModel::BoardModel() {
     for (int y = 0; y < 8; y++) {
@@ -19,7 +19,7 @@ BoardModel::BoardModel() {
     for (int y = 5; y < 8; y++) {
         for (int x = 0; x < 8; x++) {
             if ((y + x) % 2) {
-                auto *piece = Factory::Create("Checker", y, x, Color(-1));
+                auto *piece = BoardModel::createPiece("Checker", y, x, Color(-1));
                 this->_tiles[y][x].setPiece(piece);
                 this->_whiteCounter++;
             }
@@ -29,7 +29,7 @@ BoardModel::BoardModel() {
     for (int y = 0; y < 3; y++) {
         for (int x = 0; x < 8; x++) {
             if ((y + x) % 2) {
-                auto *piece = Factory::Create("Checker", y, x, Color(1));
+                auto *piece = BoardModel::createPiece("Checker", y, x, Color(1));
                 this->_tiles[y][x].setPiece(piece);
                 this->_blackCounter++;
             }
@@ -39,11 +39,11 @@ BoardModel::BoardModel() {
     _playerTurn = -1;
 };
 
-BoardModel *BoardModel::getSingleton() {
-    if (_singleton == nullptr) {
-        _singleton = new BoardModel();
+BoardModel *BoardModel::getInstance() {
+    if (_instance == nullptr) {
+        _instance = new BoardModel();
     }
-    return _singleton;
+    return _instance;
 };
 
 bool BoardModel::checkWinCondition() const {
@@ -57,4 +57,26 @@ bool BoardModel::checkWinCondition() const {
     } else
         return false;
 }
+
+IPieceModel *BoardModel::createPiece(const std::string &model, const int &y, const int &x, Color color) {
+    if (model == "Checker") {
+        //Создаем Subject (CheckerModel) с наблюдателем (CheckerView : Observer)
+        auto *checker = new CheckerModel(y, x, Color(color));
+        const auto observer = new CheckerView();
+        checker->Attach(observer);
+        return checker;
+
+    } else if (model == "Queen") {
+        //Создаем Subject (QueenModel) с наблюдателем (QueenView : Observer)
+        auto *queen = new QueenModel(y, x, Color(color));
+        const auto observer = new QueenView();
+        queen->Attach(observer);
+        return queen;
+    }
+    return nullptr;
+}
+
+
+
+
 

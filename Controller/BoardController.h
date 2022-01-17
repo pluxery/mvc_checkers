@@ -1,11 +1,9 @@
 #pragma once
 
-#include "../Model/BoardModel.h"
-#include "../Model/BoardModel.cpp"
+#include "../Model/BoardModel/BoardModel.h"
+#include "../Model/BoardModel/BoardModel.cpp"
 #include "../Model/Figures/IPieceModel.h"
-#include "../MoveState/MoveState.h"
-
-//#include "../Model/Figures/CheckerModel.cpp"
+#include "../Model/MoveState/MoveState.h"
 
 
 const char row[] = "ABCDEFGH";

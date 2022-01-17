@@ -5,7 +5,6 @@ void BoardView::drawBoard(BoardModel *board) {
         std::cout << y + 1 << " ";
         for (int x = 0; x < 8; x++) {
             if (board->getTile(y, x).hasPiece()) {
-                //При отрисовке доски, шашка (Subject) уведомляет наблюдателей Views (Observer)
                 auto *piece = board->getTile(y, x).getPiece();
                 piece->Notify();
 

@@ -1,6 +1,6 @@
 #pragma once
 
-#include "../Model/Figures/IPieceModel.h"
+#include "../Figures/IPieceModel.h"
 
 
 enum MoveType {

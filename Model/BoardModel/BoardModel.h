@@ -1,14 +1,12 @@
 #pragma once
 
 #include <vector>
-#include "Figures/CheckerModel.h"
-#include "Figures/CheckerModel.cpp"
-#include "Figures/QueenModel.h"
-#include "Figures/QueenModel.cpp"
-#include "../View/Figures/CheckerView.h"
-#include "../View/Figures/QueenView.h"
-#include "../Factory/Factory.h"
-#include "../Factory/Factory.cpp"
+#include "../Figures/CheckerModel.h"
+#include "../Figures/CheckerModel.cpp"
+#include "../Figures/QueenModel.h"
+#include "../Figures/QueenModel.cpp"
+#include "../../View/Figures/CheckerView.h"
+#include "../../View/Figures/QueenView.h"
 
 
 class BoardModel {
@@ -19,20 +17,22 @@ private:
     int _playerTurn;
 
 protected:
-    /*
-     * Конструктор Singleton должен быть скрытым, чтобы предотвратить
-     * создание объекта через оператор new.
-     */
     BoardModel();
 
-    static BoardModel *_singleton;
+    static BoardModel *_instance;
 
 public:
-    BoardModel(BoardModel &other) = delete;//Singleton нельзя копировать
+    BoardModel(const BoardModel &) = delete;
 
-    void operator=(const BoardModel &) = delete;
+    BoardModel(BoardModel &&) = delete;
 
-    static BoardModel *getSingleton();
+    BoardModel &operator=(const BoardModel &) = delete;
+
+    BoardModel &operator=(BoardModel &&) = delete;
+
+    static BoardModel *getInstance();
+
+    static IPieceModel *createPiece(const std::string &model, const int &y, const int &x, Color color);
 
     bool checkWinCondition() const;
 

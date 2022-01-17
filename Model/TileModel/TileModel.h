@@ -1,7 +1,7 @@
 #pragma once
 
 
-#include "Figures/IPieceModel.h"
+#include "../Figures/IPieceModel.h"
 
 class IPieceModel;
 

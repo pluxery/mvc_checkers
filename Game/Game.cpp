@@ -2,19 +2,11 @@
 
 using milliseconds = std::chrono::milliseconds;
 
-void Buffer::parseCoords() { //char code to int values
-    int nums[10]{0, 1, 2, 3, 4, 5, 6, 7, 8, 9};
-    for (int code = 48, digit = 0; code < 58; code++, digit++) {
-        if (this->oldY == code) {
-            this->oldY = nums[digit];
-        }
-        if (this->newY == code) {
-            this->newY = nums[digit];
-        }
-    }
+void Buffer::parseCoords() {
     this->oldY--;
     this->newY--;
 
+    int nums[10]{0, 1, 2, 3, 4, 5, 6, 7, 8, 9};
     for (int code = 65, letter = 0; code < 73; code++, letter++) {
         if (this->oldX == code) {
             this->oldX = nums[letter];
@@ -43,26 +35,15 @@ void AsyncExitListener() {
         }
         std::this_thread::sleep_for(milliseconds(500));
     }
-
 }
 
-
 Buffer Input(Buffer &coords) {
-
-    std::cin.ignore();
     std::cout << "Pick your piece (number, letter):" << std::endl;
-    //_getch() - Считывание клавиши с клавиатуры
-    coords.oldY = _getch();
-    coords.oldX = _getch();
-
-    std::cin.ignore();
+    std::cin >> coords.oldY >> coords.oldX;
     std::cout << "Pick your move (number, letter):" << std::endl;
-    coords.newY = _getch();
-    coords.newX = _getch();
-
+    std::cin >> coords.newY >> coords.newX;;
     coords.parseCoords();
     return coords;
-
 }
 
 void Launch() {
@@ -70,10 +51,9 @@ void Launch() {
     std::cout << "Welcome!" << std::endl;
     std::cout << "Press 'Enter' for start game." << std::endl;
     std::cout << "Press 'Escape' for exit:" << std::endl;
-    //пока клавиша не нажата
     while (!_kbhit()) {
         GetKeyPressed();
-        if (KEY[VK_RETURN]) {// Enter
+        if (KEY[VK_RETURN]) {
             std::cout << "Go!" << std::endl;
             return;
         } else if (KEY[VK_ESCAPE]) {
@@ -89,12 +69,15 @@ void Render(BoardModel *boardModel) {
     BoardView::drawBoard(boardModel);
     std::string player;
     boardModel->getPlayerTurn() == 1 ? player = "BLACK" : player = "WHITE";
+    std::cout << "\nBlack pieces: " << boardModel->getBlackCounter() << std::endl;
+    std::cout << "White pieces: " << boardModel->getWhiteCounter() << std::endl;
     std::cout << std::endl << "Turn: " + player << std::endl;
 }
 
 void Update(Buffer coords, BoardModel *boardModel) {
     BoardController::tryMove(coords.oldY, coords.oldX, coords.newY, coords.newX, boardModel);
 }
+
 
 
 

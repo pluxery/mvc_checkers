@@ -6,10 +6,10 @@ MoveState CheckerModel::move(const std::vector<std::vector<TileModel>> &tiles, i
     }
     int y0 = this->getY();
     int x0 = this->getX();
-    //проверка обычного хода
+
     if (newY - y0 == (int) (this->getColor()) && abs(newX - x0) == 1) {
         return {NORMAL};
-        //проверка хода со срезом шашки
+
     } else if (newY - y0 == (int) (this->getColor()) * 2 && abs(newX - x0) == 2) {
         int otherY = y0 + (newY - y0) / 2;
         int otherX = x0 + (newX - x0) / 2;

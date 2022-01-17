@@ -3,7 +3,7 @@
 void BoardController::tryMove(int oldY, int oldX, int newY, int newX, BoardModel *board) {
 
     MoveState move_state = NONE;
-    //Проверка корректности координат
+
     if (board->getTile(oldY, oldX).hasPiece() && !board->getTile(newY, newX).hasPiece() &&
         board->getPlayerTurn() == board->getTile(oldY, oldX).getPiece()->getColor()) {
 
@@ -15,39 +15,39 @@ void BoardController::tryMove(int oldY, int oldX, int newY, int newX, BoardModel
             else
                 board->setPlayerTurn(1);
         } else {
-            std::cout << "Wrong position!" << std::endl;
+            std::cerr << "Wrong position!" << std::endl;
         }
     }
 
     switch (move_state.getType()) {
-        //ситуация: ход некорректный
+
         case NONE:
             break;
-            //ситуация: обычный ход
+
         case NORMAL: {
             IPieceModel *piece = board->getTile(oldY, oldX).getPiece();
             piece->setY(newY);
             piece->setX(newX);
-            //Получение королевы
+
             if ((piece->getColor() == 1 && newY == 7) || (piece->getColor() == -1 && newY == 0)) {
                 int color = piece->getColor();
-                auto *queen = Factory::Create("Queen", newY, newX, Color(color));
+                auto *queen = BoardModel::createPiece("Queen", newY, newX, Color(color));
                 board->getTile(newY, newX).setPiece(queen);
             } else
                 board->getTile(newY, newX).setPiece(piece);
             board->getTile(oldY, oldX).setPiece(nullptr);
             break;
         }
-            //ситуация: ход со срубом шашки оппонента
+
         case KILL:
             IPieceModel *piece = board->getTile(oldY, oldX).getPiece();
             piece->setY(newY);
             piece->setX(newX);
 
-            //Получение королевы
+
             if ((piece->getColor() == 1 && newY == 7) || (piece->getColor() == -1 && newY == 0)) {
                 int color = piece->getColor();
-                auto *queen = Factory::Create("Queen", newY, newX, Color(color));
+                auto *queen = BoardModel::createPiece("Queen", newY, newX, Color(color));
                 board->getTile(newY, newX).setPiece(queen);
             } else
                 board->getTile(newY, newX).setPiece(piece);
